@@ -1,5 +1,6 @@
-package com.example.batchprocessing;
+package com.example.batchprocessing.processors;
 
+import com.example.batchprocessing.models.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +17,7 @@ public class PersonItemProcessor implements ItemProcessor<Person, Person> {
 
 		final Person transformedPerson = new Person(firstName, lastName);
 
-		log.info("Converting (" + person + ") into (" + transformedPerson + ")");
+		log.info("Processando (" + person + ") de minúsculo para (" + transformedPerson + ") maiúsculo");
 
 		return transformedPerson;
 	}

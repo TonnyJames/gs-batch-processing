@@ -1,5 +1,6 @@
 package com.example.batchprocessing;
 
+import com.example.batchprocessing.models.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.BatchStatus;
@@ -24,13 +25,13 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
 	@Override
 	public void afterJob(JobExecution jobExecution) {
 		if(jobExecution.getStatus() == BatchStatus.COMPLETED) {
-			log.info("!!! JOB FINISHED! Time to verify the results");
+			log.info("!!! JOB FINALIZADO! Resultados da pesquisa com a Query: SELECT first_name, last_name FROM people");
 
 			jdbcTemplate.query("SELECT first_name, last_name FROM people",
 				(rs, row) -> new Person(
 					rs.getString(1),
 					rs.getString(2))
-			).forEach(person -> log.info("Found <" + person + "> in the database."));
+			).forEach(person -> log.info("O Cadastro de <" + person + "> foi encontrado no Banco de dados."));
 		}
 	}
 }
